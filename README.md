@@ -39,27 +39,6 @@ make report          # сгенерировать отчёт с метрикам
 Стек
 
 Python (pandas, numpy, scikit-learn, xgboost/lightgbm), Jupyter, matplotlib/seaborn, DVC (опц.), pre-commit, GitHub Actions.
-##Архитектура проекта
-.
-├── .github/workflows/ci.yml      # линт/тесты
-├── data/
-│   ├── raw/                      # сырые данные (локально)
-│   └── processed/                # обработанные
-├── notebooks/
-│   └── EDA.ipynb                 # исследовательские ноутбуки
-├── src/
-│   ├── data.py                   # загрузка/очистка
-│   ├── features.py               # генерация фич
-│   ├── models.py                 # модели/пайплайны
-│   ├── train.py                  # обучение/валидация
-│   └── utils.py                  # общее
-├── tests/                        # unit-тесты
-├── Screenshots/                  # скриншоты графиков
-├── Makefile                      # удобные команды
-├── requirements.txt
-├── README.md
-└── LICENSE
-
 
 Воспроизводимость
 

@@ -1,34 +1,84 @@
-# 🚗 Предсказание стоимости автомобилей
+# Предсказание стоимости автомобилей 🚗💸
 
-Проект на Python для предсказания рыночной цены автомобилей на основе их характеристик с использованием методов машинного обучения.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/Kor4yz/Predicting-the-cost-of-cars./ci.yml?label=CI)](../../actions)
+[![Made with: Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](#стек)
 
-![Result](./Screenshots/1.png)  
-![Result](./Screenshots/2.png)  
-![Result](./Screenshots/3.png)  
-![Result](./Screenshots/4.png)  
+Модель регрессии для предсказания рыночной цены авто на табличных данных: EDA → фичи → отбор/скейлинг → ансамбли (GBM) → сравнение метрик.
 
----
+## Задача
+- Очистить и исследовать датасет автомобилей (марка, модель, год, пробег, мощность/объём, тип топлива/трансмиссии и др.).
+- Построить несколько моделей (Linear/Ridge/Lasso, RandomForest, GradientBoosting, XGBoost/LightGBM), подобрать гиперпараметры.
+- Оценить качество (*MAE, RMSE, R²*), интерпретировать факторы цены (важности признаков, PDP/ICE, SHAP).
 
-## 📌 Описание проекта
+## Данные
+- `data/raw/` — исходные CSV (не в репозитории; см. ниже DVC/скачивание).
+- `data/processed/` — после очистки/фичеинжиниринга.
+- Признаки: `brand`, `model`, `year`, `mileage`, `engine_power`, `engine_volume`, `fuel`, `transmission`, `body`, `owners`, `region`, пр.
 
-В этом проекте мы:
+> Пример графиков см. в [`Screenshots/`](Screenshots).
 
-1. Собираем и очищаем датасет автомобилей (марка, модель, год, пробег, двигатель, коробка передач и др.).  
-2. Проводим разведочный анализ данных (EDA) и визуализируем ключевые зависимости.  
-3. Обучаем несколько регрессионных моделей (линейная регрессия, случайный лес, градиентный бустинг).  
-4. Подбираем гиперпараметры с помощью `GridSearchCV`.  
-5. Оцениваем модели метриками MAE, RMSE и R².  
-6. Сохраняем лучшую модель для дальнейшего использования.
+## Результаты (пример)
+| Модель            | MAE        | RMSE       | R²    |
+|-------------------|-----------:|-----------:|:-----:|
+| RidgeCV           | **XXXXX**  | YYYYY      | 0.ZZ  |
+| RandomForest      | XXXXX      | YYYYY      | 0.ZZ  |
+| XGBoost           | XXXXX      | **YYYYY**  | **0.ZZ** |
 
----
+📊 **Важности признаков / SHAP** — в отчёте и в папке [`Screenshots/`](Screenshots).
 
-## 🛠️ Технологии
+## Быстрый старт
+```bash
+git clone https://github.com/Kor4yz/Predicting-the-cost-of-cars..git
+cd Predicting-the-cost-of-cars.
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+make train           # полный цикл: load → preprocess → train → evaluate
+make report          # сгенерировать отчёт с метриками/графиками
+```
+Стек
 
-- Python 3.8+  
-- pandas, numpy  
-- scikit-learn  
-- matplotlib, seaborn  
-- Jupyter Notebook  
+Python (pandas, numpy, scikit-learn, xgboost/lightgbm), Jupyter, matplotlib/seaborn, DVC (опц.), pre-commit, GitHub Actions.
+##Архитектура проекта
+.
+├── .github/workflows/ci.yml      # линт/тесты
+├── data/
+│   ├── raw/                      # сырые данные (локально)
+│   └── processed/                # обработанные
+├── notebooks/
+│   └── EDA.ipynb                 # исследовательские ноутбуки
+├── src/
+│   ├── data.py                   # загрузка/очистка
+│   ├── features.py               # генерация фич
+│   ├── models.py                 # модели/пайплайны
+│   ├── train.py                  # обучение/валидация
+│   └── utils.py                  # общее
+├── tests/                        # unit-тесты
+├── Screenshots/                  # скриншоты графиков
+├── Makefile                      # удобные команды
+├── requirements.txt
+├── README.md
+└── LICENSE
 
----
 
+Воспроизводимость
+
+Фиксация версий в requirements.txt.
+
+Сид генератора случайных чисел.
+
+Разделение train/valid по стратифицированному фолдингу (по году/бренду).
+
+(Опционально) DVC для версионирования data/.
+
+Отчёты и материалы
+
+📄 Report.pdf — краткий отчёт по проекту.
+
+🎞 Presentation.pptx — презентация с результатами.
+
+🖼️ Папка Screenshots/
+ — ключевые графики (распределения, важности, ошибки).
+## 📬 Автор
+**Денис Морозов**  
+📧 Kor4yz@yandex.ru · [GitHub](https://github.com/Kor4yz) · [Telegram](https://t.me/kor4yz)
